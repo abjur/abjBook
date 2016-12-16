@@ -7,9 +7,8 @@
 #'
 #' @export
 setup_abj_book <- function(name, path = './') {
-  arqs <- dir(system.file('bookdown-demo2', package = 'abjBook'),
-              all.files = TRUE, full.names = TRUE)
-  file.copy(arqs, path)
+  arq_tar <- system.file('bookdown-demo.tar', package = 'abjBook')
+  untar(arq_tar, exdir = path)
   rstudio <- system.file('bookdown-demo.Rproj', package = 'abjBook')
   file.copy(rstudio, sprintf('%s/%s.Rproj', path, name))
   readme <- sprintf('%s/README.md', path)
