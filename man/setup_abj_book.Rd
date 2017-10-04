@@ -14,4 +14,3 @@ setup_abj_book(name, path = "./")
 \description{
 Setupar ABJ book
 }
-

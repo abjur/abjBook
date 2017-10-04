@@ -6,16 +6,19 @@
 #' @param path pasta onde os arquivos serao copiados.
 #'
 #' @export
-setup_abj_book <- function(name, path = './') {
-  arq_tar <- system.file('bookdown-demo.tar', package = 'abjBook')
-  untar(arq_tar, exdir = path)
-  rstudio <- system.file('bookdown-demo.Rproj', package = 'abjBook')
-  file.copy(rstudio, sprintf('%s/%s.Rproj', path, name))
-  readme <- sprintf('%s/README.md', path)
-  r <- stringr::str_replace_all(readr::read_file(readme), '<nome>', name)
-  cat(r, file = readme)
-  book_name <- sprintf('%s/_bookdown.yml', path)
-  r <- stringr::str_replace_all(readr::read_file(book_name), '<nome>', name)
-  cat(r, file = book_name)
-  invisible(TRUE)
+setup_abj_book <- function(name, path = '.') {
+
+  main_folder <- find_folder(template = 'abjBook', folder = '')
+
+  folders <- main_folder %>%
+    list.files(full.names = TRUE, pattern = '[^(skeleton|travis)]')
+
+  copy2root <- main_folder %>%
+    list.files(full.names = TRUE, recursive = TRUE) %>%
+    stringr::str_subset(pattern = "skeleton|travis") %>%
+    c(folders)
+
+  file.remove(list.files(pattern = "\\.Rproj$"))
+  invisible(file.copy(copy2root, to = path, recursive = T))
+
 }
