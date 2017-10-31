@@ -7,10 +7,21 @@
 setup_abj_book(name, path = ".")
 }
 \arguments{
-\item{name}{nome do livro.}
+\item{name}{Name of the book. You may create a folder with this name before
+running this function.}
 
-\item{path}{pasta onde os arquivos serao copiados.}
+\item{path}{Path to the book folder. Your book files will be inside
+\code{/path/folder/name}.}
 }
 \description{
-Setupar ABJ book
+Creates ABJ book file structure. It will contain all the files that you need
+to compile your new book. You should start by running \code{Ctrl+Shift+B}
+(build) on index.Rmd using RStudio. If it runs successfully, your output will
+be in the _book folder
+}
+\examples{
+\dontrun{
+dir.create("exampleBook")
+abjBook::setup_abj_book("myNewBook", path = "exampleBook")
+}
 }
