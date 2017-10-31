@@ -4,7 +4,7 @@
 \alias{setup_abj_book}
 \title{Setup ABJ book}
 \usage{
-setup_abj_book(name, path = "./")
+setup_abj_book(name, path = ".")
 }
 \arguments{
 \item{name}{nome do livro.}
