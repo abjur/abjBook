@@ -18,4 +18,7 @@ Imports: bookdown,
     stringr,
     tidyverse,
     xtable,
-    knitr
+    knitr,
+    abjTemplates
+Remotes:
+    abjur/abjTemplates
