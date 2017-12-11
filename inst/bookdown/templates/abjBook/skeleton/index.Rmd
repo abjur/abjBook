@@ -7,6 +7,7 @@ documentclass: report
 bibliography: [bibliography/book.bib, bibliography/packages.bib]
 biblio-style: apalike
 link-citations: yes
+fontsize: '12pt'
 colorlinks: yes 
 lot: yes
 lof: yes
@@ -24,37 +25,7 @@ options(OutDec = ',')
 
 ```{r include_table, echo = F}
 library(tidyverse)
-
-if (!knitr:::is_html_output()){
-  
-  knit_print.data.frame = function(x, ...) {
-    
-    res <- capture.output(x %>%
-          xtable::xtable(...) %>%
-          print(type = 'latex', tabular.enviroment = 'longtable', comment = F, include.rownames = F))
-
-    res %>%
-      paste0(collapse = '\n') %>%
-      stringr::str_replace_all(stringr::fixed("{table}[ht]"), "{table}[H]") %>% 
-      knitr::asis_output()
-  }
-
-  kable = knit_print.data.frame
-  
-  # theme if Latex
-  {theme_minimal(12) +
-    theme(text = element_text(family = "sf",colour = '#0c0c0c', face = 'plain'))} %>% 
-    theme_set()
-  
-} else {
-  kable <- knitr::kable
-  
-  #' Theme if html
-  {theme_minimal(15)+
-      theme(text = element_text(family = "helvetica", colour = '#3a3a3a', face = 'plain'))} %>% 
-      theme_set()
-}
-
+library(abjTemplates)
 ```
 
 # Introduction {#introducao-2}
@@ -70,7 +41,7 @@ qplot(1:10, 1:10) +
 
 Se você precisar importar uma imagem de fora do R, é melhor que você faça `![]()`, a despeito do que diz o Yihui.
 
-![Essa é a caption.](imgs/logoabj.png){#fig:logo}
+![Essa é a caption.](imgs/logo_abj.png){#fig:logo}
 
 Se você estiver com muita vontade de seguir os ensinamentos do mestre, você pode usa o `knitr::include_graphics`, mas vai precisar setar `dpi = NA`.
 
@@ -90,11 +61,10 @@ De toda forma, não é uma boa criar imagens que vieram dentro de pastas. Você 
  
  Outro tipo de referência interessante é a referência a subseções. Você pode usar [essa sintaxe][objetivos] pra ir pra seção de objetivos. Você também pode usar \@ref(objetivos).
  
-Por fim, pra inserir tabelas, use apenas `kable`. Esse `book` sabe o que fazer dependendo do `output`.
+Por fim, pra inserir tabelas, não use nada. O `abjTemplates` faz tudo por você. As captions, inclusive, agora podem ser adicionadas no cabeçalho do `chunk`. O `abjTemplates` sabe o que fazer dependendo do `output`.
 
-```{r tabela}
+```{r tabela, tab.cap = "Essa é uma tabela."}
 mtcars %>% 
-  head(5) %>% 
-  kable(caption = "Essa é uma tabela.")
+  head(5)
 ```
 
